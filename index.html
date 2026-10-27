@@ -59,6 +59,9 @@ h3{font-size:var(--t-h3);line-height:1.15}
 .btn svg{width:20px;height:20px;flex:none}
 .btn--gold{background:var(--mustard);color:var(--ink)}
 .btn--gold:hover{background:#FFC350;transform:translateY(-2px)}
+.btn--wa{background:#25D366;color:#fff}
+.btn--wa:hover{background:#1EBE5A;transform:translateY(-2px)}
+.btn--wa svg{width:22px;height:22px}
 .btn--ghost{border-color:rgba(255,255,255,.8);color:#fff}
 .btn--ghost:hover{background:#fff;color:var(--ink)}
 .btn:active{transform:scale(.97)}
@@ -118,20 +121,22 @@ h3{font-size:var(--t-h3);line-height:1.15}
 .t-big{grid-column:span 2;grid-row:span 2}
 .t-wide{grid-column:span 2}
 
-.suites{display:grid;grid-template-columns:1fr 2.4fr;gap:clamp(32px,5vw,72px);align-items:center;margin-top:clamp(72px,8vw,120px)}
+.suites{display:grid;grid-template-columns:1fr 2fr;gap:clamp(32px,5vw,72px);align-items:center;margin-top:clamp(72px,8vw,120px)}
 .suites__text p{margin-top:16px;color:var(--ink-2);max-width:32ch}
 .suites__text a{display:inline-block;margin-top:22px;font-weight:700;text-decoration:none;border-bottom:2px solid var(--mustard);padding-bottom:2px}
 .suites__text a:hover{background:var(--mustard)}
-.suites__photos{min-width:0}
-.track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-x:contain}
-.track::-webkit-scrollbar{display:none}
-.track img{flex:none;height:clamp(300px,32vw,460px);width:auto;max-width:none;border-radius:6px;scroll-snap-align:start}
-.arrows{display:flex;align-items:center;gap:12px;margin-top:32px}
-.arrow{width:52px;height:52px;border-radius:50%;border:2px solid var(--ink);background:none;color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:background-color .25s,color .25s,opacity .25s}
-.arrow svg{width:20px;height:20px}
-.arrow:hover:not(:disabled){background:var(--ink);color:#fff}
-.arrow:disabled{opacity:.25;cursor:default}
-.count{margin-left:8px;font-size:var(--t-small);color:var(--ink-2);font-variant-numeric:tabular-nums}
+.stage{position:relative;aspect-ratio:3/2;border-radius:8px;overflow:hidden;background:var(--navy)}
+.slide{position:absolute;inset:0;margin:0;opacity:0;transition:opacity 1s ease}
+.slide.on{opacity:1}
+.slide .fundo{position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);max-width:none;object-fit:cover;filter:blur(28px) brightness(.72) saturate(1.1)}
+.slide .foto{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.seta{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:50px;height:50px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:var(--ink);cursor:pointer;display:grid;place-items:center;box-shadow:0 4px 16px rgba(8,22,39,.25);transition:background-color .25s,transform .25s}
+.seta:hover{background:#fff;transform:translateY(-50%) scale(1.06)}
+.seta svg{width:20px;height:20px}
+.seta--ant{left:16px}.seta--prox{right:16px}
+.pontos{position:absolute;z-index:3;left:0;right:0;bottom:16px;display:flex;justify-content:center;gap:10px}
+.pontos button{width:10px;height:10px;padding:0;border-radius:50%;border:0;background:rgba(255,255,255,.5);cursor:pointer;transition:width .3s,background-color .3s}
+.pontos button[aria-current="true"]{width:28px;border-radius:5px;background:#fff}
 
 /* ---------- praia ---------- */
 .beach{position:relative;height:clamp(420px,72vh,760px);overflow:hidden;background:var(--navy)}
@@ -213,8 +218,9 @@ h3{font-size:var(--t-h3);line-height:1.15}
   .bento{grid-template-columns:1fr 1fr;grid-auto-rows:190px;gap:10px}
   .tile figcaption{left:16px;right:16px;bottom:14px}
   .tile figcaption p{display:none}
-  .track{gap:10px}
-  .track img{height:300px}
+  .stage{aspect-ratio:1/1}
+  .seta{width:42px;height:42px}
+  .seta--ant{left:10px}.seta--prox{right:10px}
   .dist dt{font-size:17px}
   .plan{grid-template-columns:1fr}
   .foot__top{grid-template-columns:1fr}
@@ -253,7 +259,7 @@ h3{font-size:var(--t-h3);line-height:1.15}
       <div class="hero__row">
         <p>Uma guest house para casais a 70 m da trilha da praia mais preservada da ilha.</p>
         <div class="hero__cta">
-          <a class="btn btn--gold" href="#reserva">Reservar pelo WhatsApp</a>
+          <a class="btn btn--wa" href="#reserva"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.5-.7-2.2-1.4-.6-.6-1-1.2-1.2-1.6-.1-.2 0-.4.1-.5l.4-.5.2-.4v-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.7 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.2-.3-.2-.5-.3Z"/></svg>Reservar pelo WhatsApp</a>
           <a class="btn btn--ghost" href="#a-casa">Conhecer a casa</a>
         </div>
       </div>
@@ -304,19 +310,15 @@ h3{font-size:var(--t-h3);line-height:1.15}
           <h3>As suítes</h3>
           <p>Cada uma tem seu jeito, todas pensadas para o descanso de um casal depois de um dia de praia.</p>
           <a href="#reserva">Consultar disponibilidade</a>
-          <div class="arrows">
-            <button class="arrow" type="button" id="prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-            <button class="arrow" type="button" id="next" aria-label="Próxima foto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-            <span class="count" id="count" aria-live="polite">1 de 4</span>
-          </div>
         </div>
-        <div class="suites__photos rv" style="--d:100ms">
-          <div class="track" id="track" tabindex="0" aria-label="Fotos das suítes">
-            <img src="img/suite-1.jpg" alt="Suíte Bali com cama de casal, travesseiros azuis e cortinas" width="1156" height="1600" loading="lazy">
-            <img src="img/suite-2.jpg" alt="Cama da Suíte Bali com luminária vermelha e janela com cortinas" width="1600" height="924" loading="lazy">
-            <img src="img/suite-3.jpg" alt="Entrada da Suíte Bali com porta de madeira, guirlanda e duas cadeiras de ferro" width="2000" height="1125" loading="lazy">
-            <img src="img/varanda.jpg" alt="Varanda da Suíte Bali com cadeiras de ferro e jardim tropical" width="2000" height="1125" loading="lazy">
-          </div>
+        <div class="stage rv" id="stage" style="--d:100ms" aria-roledescription="carrossel" aria-label="Fotos das suítes">
+            <figure class="slide on"><img class="fundo" src="img/suite-1.jpg" alt="" loading="lazy"><img class="foto" src="img/suite-1.jpg" alt="Suíte Bali com cama de casal, travesseiros azuis e cortinas" loading="lazy"></figure>
+            <figure class="slide"><img class="fundo" src="img/suite-2.jpg" alt="" loading="lazy"><img class="foto" src="img/suite-2.jpg" alt="Cama da Suíte Bali com luminária vermelha e janela com cortinas" loading="lazy"></figure>
+            <figure class="slide"><img class="fundo" src="img/suite-3.jpg" alt="" loading="lazy"><img class="foto" src="img/suite-3.jpg" alt="Entrada da Suíte Bali com porta de madeira, guirlanda e duas cadeiras de ferro" loading="lazy"></figure>
+            <figure class="slide"><img class="fundo" src="img/varanda.jpg" alt="" loading="lazy"><img class="foto" src="img/varanda.jpg" alt="Varanda da Suíte Bali com cadeiras de ferro e jardim tropical" loading="lazy"></figure>
+            <button class="seta seta--ant" type="button" id="prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="seta seta--prox" type="button" id="next" aria-label="Próxima foto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="pontos" id="pontos"><button type="button" aria-label="Foto 1" aria-current="true"></button><button type="button" aria-label="Foto 2"></button><button type="button" aria-label="Foto 3"></button><button type="button" aria-label="Foto 4"></button></div>
         </div>
       </div>
     </div>
@@ -364,7 +366,7 @@ h3{font-size:var(--t-h3);line-height:1.15}
         </label>
         <output id="resumo" aria-live="polite"></output>
         <input type="hidden" name="text" id="txt" value="Olá, Zauá! Vi o site e quero saber sobre disponibilidade na Zauá House.">
-        <button class="btn btn--gold" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.5-.7-2.2-1.4-.6-.6-1-1.2-1.2-1.6-.1-.2 0-.4.1-.5l.4-.5.2-.4v-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.7 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.2-.3-.2-.5-.3Z"/></svg>Enviar pelo WhatsApp</button>
+        <button class="btn btn--wa" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.5-.7-2.2-1.4-.6-.6-1-1.2-1.2-1.6-.1-.2 0-.4.1-.5l.4-.5.2-.4v-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.7 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.2-.3-.2-.5-.3Z"/></svg>Enviar pelo WhatsApp</button>
       </form>
     </div>
   </section>
@@ -418,33 +420,23 @@ h3{font-size:var(--t-h3);line-height:1.15}
     els.forEach(function(el){io.observe(el)});
   }else{els.forEach(function(el){el.classList.add("in")})}
 
-  // suítes: carrossel com setas, sem cortar as fotos
-  var track=document.getElementById("track"),prev=document.getElementById("prev"),next=document.getElementById("next"),count=document.getElementById("count");
-  var slides=[].slice.call(track.children);
-  function atual(){var x=track.scrollLeft,i=0;slides.forEach(function(s,k){if(s.offsetLeft-track.offsetLeft<=x+8)i=k});return i}
-  function ir(i){i=Math.max(0,Math.min(slides.length-1,i));track.scrollTo({left:slides[i].offsetLeft-track.offsetLeft})}
-  function marca(){
-    var fim=track.scrollLeft+track.clientWidth>=track.scrollWidth-8,i=fim?slides.length-1:atual();
-    prev.disabled=track.scrollLeft<=4;next.disabled=fim;count.textContent=(i+1)+" de "+slides.length;
-  }
-  function avanca(){var fim=track.scrollLeft+track.clientWidth>=track.scrollWidth-8;ir(fim?0:atual()+1)}
-  prev.addEventListener("click",function(){ir(atual()-1);pausa()});
-  next.addEventListener("click",function(){avanca();pausa()});
-  track.addEventListener("scroll",function(){window.requestAnimationFrame(marca)},{passive:true});
-  window.addEventListener("resize",marca);marca();
-
-  // troca sozinho a cada 3,5 s enquanto o carrossel está na tela; para quando a pessoa mexe e volta depois
-  var auto=null,visivel=false,parado=false,volta;
-  function liga(){if(!auto&&visivel&&!parado&&!document.hidden&&!calm)auto=setInterval(avanca,3500)}
+  // suítes: uma foto por vez, inteira, trocando sozinha a cada 4 s
+  var stage=document.getElementById("stage"),slides=[].slice.call(stage.querySelectorAll(".slide")),pontos=[].slice.call(document.querySelectorAll("#pontos button")),i=0;
+  function mostra(n){i=(n+slides.length)%slides.length;slides.forEach(function(s,k){s.classList.toggle("on",k===i)});pontos.forEach(function(p,k){p.setAttribute("aria-current",k===i?"true":"false")})}
+  var calm=window.matchMedia("(prefers-reduced-motion: reduce)").matches,auto=null,visivel=false,parado=false,volta;
+  function liga(){if(!auto&&visivel&&!parado&&!document.hidden&&!calm)auto=setInterval(function(){mostra(i+1)},4000)}
   function desliga(){clearInterval(auto);auto=null}
   function pausa(){parado=true;desliga();clearTimeout(volta);volta=setTimeout(function(){parado=false;liga()},8000)}
-  var calm=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  ["pointerdown","touchstart","wheel"].forEach(function(ev){track.addEventListener(ev,pausa,{passive:true})});
-  track.addEventListener("mouseenter",function(){parado=true;desliga()});
-  track.addEventListener("mouseleave",function(){parado=false;liga()});
+  document.getElementById("prev").addEventListener("click",function(){mostra(i-1);pausa()});
+  document.getElementById("next").addEventListener("click",function(){mostra(i+1);pausa()});
+  pontos.forEach(function(p,k){p.addEventListener("click",function(){mostra(k);pausa()})});
+  // arrastar com o dedo
+  var x0=null;
+  stage.addEventListener("touchstart",function(e){x0=e.touches[0].clientX},{passive:true});
+  stage.addEventListener("touchend",function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40){mostra(i+(dx<0?1:-1));pausa()}x0=null},{passive:true});
   document.addEventListener("visibilitychange",function(){document.hidden?desliga():liga()});
   if("IntersectionObserver" in window){
-    new IntersectionObserver(function(es){visivel=es[0].isIntersecting;visivel?liga():desliga()},{threshold:.4}).observe(track);
+    new IntersectionObserver(function(es){visivel=es[0].isIntersecting;visivel?liga():desliga()},{threshold:.4}).observe(stage);
   }else{visivel=true;liga()}
 
   // reserva: monta a mensagem do WhatsApp com as datas escolhidas
