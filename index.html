@@ -427,10 +427,25 @@ h3{font-size:var(--t-h3);line-height:1.15}
     var fim=track.scrollLeft+track.clientWidth>=track.scrollWidth-8,i=fim?slides.length-1:atual();
     prev.disabled=track.scrollLeft<=4;next.disabled=fim;count.textContent=(i+1)+" de "+slides.length;
   }
-  prev.addEventListener("click",function(){ir(atual()-1)});
-  next.addEventListener("click",function(){ir(atual()+1)});
+  function avanca(){var fim=track.scrollLeft+track.clientWidth>=track.scrollWidth-8;ir(fim?0:atual()+1)}
+  prev.addEventListener("click",function(){ir(atual()-1);pausa()});
+  next.addEventListener("click",function(){avanca();pausa()});
   track.addEventListener("scroll",function(){window.requestAnimationFrame(marca)},{passive:true});
   window.addEventListener("resize",marca);marca();
+
+  // troca sozinho a cada 3,5 s enquanto o carrossel está na tela; para quando a pessoa mexe e volta depois
+  var auto=null,visivel=false,parado=false,volta;
+  function liga(){if(!auto&&visivel&&!parado&&!document.hidden&&!calm)auto=setInterval(avanca,3500)}
+  function desliga(){clearInterval(auto);auto=null}
+  function pausa(){parado=true;desliga();clearTimeout(volta);volta=setTimeout(function(){parado=false;liga()},8000)}
+  var calm=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  ["pointerdown","touchstart","wheel"].forEach(function(ev){track.addEventListener(ev,pausa,{passive:true})});
+  track.addEventListener("mouseenter",function(){parado=true;desliga()});
+  track.addEventListener("mouseleave",function(){parado=false;liga()});
+  document.addEventListener("visibilitychange",function(){document.hidden?desliga():liga()});
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(function(es){visivel=es[0].isIntersecting;visivel?liga():desliga()},{threshold:.4}).observe(track);
+  }else{visivel=true;liga()}
 
   // reserva: monta a mensagem do WhatsApp com as datas escolhidas
   var fIn=document.getElementById("in"),fOut=document.getElementById("out"),hosp=document.getElementById("hosp"),
