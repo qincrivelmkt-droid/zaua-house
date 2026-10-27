@@ -79,7 +79,9 @@ h3{font-size:var(--t-h3);line-height:1.15}
 /* ---------- capa ---------- */
 .hero{position:relative;height:100svh;min-height:620px;color:#fff;background:var(--navy) url(video/praia-poster.jpg) center/cover;overflow:hidden}
 .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,22,39,.42) 0%,rgba(8,22,39,.06) 30%,rgba(8,22,39,.12) 52%,rgba(8,22,39,.7) 100%)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,22,39,.5) 0%,rgba(8,22,39,.12) 26%,rgba(8,22,39,.2) 45%,rgba(8,22,39,.82) 100%)}
+.hero video::-webkit-media-controls,.hero video::-webkit-media-controls-start-playback-button,.hero video::-webkit-media-controls-overlay-play-button{display:none!important;-webkit-appearance:none}
+.hero__content,.nav:not(.solid) .brand,.nav:not(.solid) .nav__links a:not(.btn){text-shadow:0 1px 2px rgba(8,22,39,.45),0 2px 18px rgba(8,22,39,.45)}
 .hero__content{position:absolute;z-index:2;left:0;right:0;bottom:clamp(40px,7vh,84px)}
 .hero__place{font-size:17px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
 .hero h1{font-size:var(--t-display);line-height:.92;letter-spacing:-.03em;margin-top:14px;font-variation-settings:"SOFT" 100,"opsz" 144}
@@ -247,7 +249,7 @@ h3{font-size:var(--t-h3);line-height:1.15}
 </nav>
 
 <header class="hero" id="topo">
-  <video autoplay muted loop playsinline preload="auto" poster="video/praia-poster.jpg" aria-hidden="true">
+  <video autoplay muted loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback preload="auto" poster="video/praia-poster.jpg" aria-hidden="true" tabindex="-1">
     <source src="video/praia.mp4" type="video/mp4">
   </video>
   <div class="hero__content">
@@ -409,7 +411,18 @@ h3{font-size:var(--t-h3);line-height:1.15}
 
   // vídeo da capa: parado para quem pediu menos animação
   var v=document.querySelector(".hero video");
-  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches&&v){v.removeAttribute("autoplay");v.pause()}
+  if(v){
+    v.muted=true;v.defaultMuted=true;v.setAttribute("muted","");
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){v.removeAttribute("autoplay");v.pause()}
+    else{
+      // alguns iPhones (modo de economia de bateria) bloqueiam o autoplay: tenta de novo no primeiro toque na tela
+      var toca=function(){var r=v.play();if(r&&r.catch)r.catch(function(){})};
+      var tenta=function(){if(v.paused)toca();["touchstart","pointerdown","click","keydown"].forEach(function(ev){document.removeEventListener(ev,tenta,true)})};
+      ["touchstart","pointerdown","click","keydown"].forEach(function(ev){document.addEventListener(ev,tenta,{capture:true,passive:true})});
+      toca();
+      document.addEventListener("visibilitychange",function(){if(!document.hidden&&v.paused)toca()});
+    }
+  }
 
   // entradas: cada parte aparece uma vez ao entrar na tela
   var els=document.querySelectorAll(".rv");
