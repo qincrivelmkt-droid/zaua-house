@@ -125,11 +125,10 @@ h3{font-size:var(--t-h3);line-height:1.15}
 .suites__text p{margin-top:16px;color:var(--ink-2);max-width:32ch}
 .suites__text a{display:inline-block;margin-top:22px;font-weight:700;text-decoration:none;border-bottom:2px solid var(--mustard);padding-bottom:2px}
 .suites__text a:hover{background:var(--mustard)}
-.stage{position:relative;aspect-ratio:3/2;border-radius:8px;overflow:hidden;background:var(--navy)}
+.stage{position:relative;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:var(--navy)}
 .slide{position:absolute;inset:0;margin:0;opacity:0;transition:opacity 1s ease}
 .slide.on{opacity:1}
-.slide .fundo{position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);max-width:none;object-fit:cover;filter:blur(28px) brightness(.72) saturate(1.1)}
-.slide .foto{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.slide .foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .seta{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:50px;height:50px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:var(--ink);cursor:pointer;display:grid;place-items:center;box-shadow:0 4px 16px rgba(8,22,39,.25);transition:background-color .25s,transform .25s}
 .seta:hover{background:#fff;transform:translateY(-50%) scale(1.06)}
 .seta svg{width:20px;height:20px}
@@ -218,7 +217,6 @@ h3{font-size:var(--t-h3);line-height:1.15}
   .bento{grid-template-columns:1fr 1fr;grid-auto-rows:190px;gap:10px}
   .tile figcaption{left:16px;right:16px;bottom:14px}
   .tile figcaption p{display:none}
-  .stage{aspect-ratio:1/1}
   .seta{width:42px;height:42px}
   .seta--ant{left:10px}.seta--prox{right:10px}
   .dist dt{font-size:17px}
@@ -312,10 +310,10 @@ h3{font-size:var(--t-h3);line-height:1.15}
           <a href="#reserva">Consultar disponibilidade</a>
         </div>
         <div class="stage rv" id="stage" style="--d:100ms" aria-roledescription="carrossel" aria-label="Fotos das suítes">
-            <figure class="slide on"><img class="fundo" src="img/suite-1.jpg" alt="" loading="lazy"><img class="foto" src="img/suite-1.jpg" alt="Suíte Bali com cama de casal, travesseiros azuis e cortinas" loading="lazy"></figure>
-            <figure class="slide"><img class="fundo" src="img/suite-2.jpg" alt="" loading="lazy"><img class="foto" src="img/suite-2.jpg" alt="Cama da Suíte Bali com luminária vermelha e janela com cortinas" loading="lazy"></figure>
-            <figure class="slide"><img class="fundo" src="img/suite-3.jpg" alt="" loading="lazy"><img class="foto" src="img/suite-3.jpg" alt="Entrada da Suíte Bali com porta de madeira, guirlanda e duas cadeiras de ferro" loading="lazy"></figure>
-            <figure class="slide"><img class="fundo" src="img/varanda.jpg" alt="" loading="lazy"><img class="foto" src="img/varanda.jpg" alt="Varanda da Suíte Bali com cadeiras de ferro e jardim tropical" loading="lazy"></figure>
+            <figure class="slide on"><img class="foto" src="img/suite-2.jpg" alt="Cama da Suíte Bali com travesseiros azuis, luminária vermelha e janela com cortinas" loading="lazy"></figure>
+            <figure class="slide"><img class="foto" src="img/suite-3.jpg" alt="Entrada da Suíte Bali com porta de madeira, guirlanda e duas cadeiras de ferro" loading="lazy"></figure>
+            <figure class="slide"><img class="foto" src="img/varanda.jpg" alt="Varanda da Suíte Bali com cadeiras de ferro e jardim tropical" loading="lazy"></figure>
+            <figure class="slide"><img class="foto" src="img/suite-jardim.jpg" alt="Corredor com jardim tropical ao lado da Suíte Bali" loading="lazy"></figure>
             <button class="seta seta--ant" type="button" id="prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             <button class="seta seta--prox" type="button" id="next" aria-label="Próxima foto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             <div class="pontos" id="pontos"><button type="button" aria-label="Foto 1" aria-current="true"></button><button type="button" aria-label="Foto 2"></button><button type="button" aria-label="Foto 3"></button><button type="button" aria-label="Foto 4"></button></div>
